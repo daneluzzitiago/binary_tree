@@ -24,22 +24,26 @@ int main(){
 	int tipoMontagem;
 	int qntdComandos;
 	int iterador;
-	char *comandos;
+	char **linhaComando;
 	
 	scanf("%d",&tipoMontagem);
 	scanf("%d",&qntdComandos);
 	
-	comandos = (char*)malloc(sizeof (char)*10*qntdComandos);
 	
-	fgets(comandos,9,stdin);
+	linhaComando = (char**)malloc(sizeof (char*)*qntdComandos);
+	for (iterador = 0; iterador < qntdComandos; iterador++){
+		linhaComando[iterador] = (char*)malloc(sizeof (char)*11);
+	}
+	//Preciso armazenar várias linhas, onde acda linha possui 3 comandos
+	for (iterador = 0; iterador < qntdComandos; iterador++){
+		fflush(stdin); //Comando que limpa o buffer e permite receber vários comandos em sequência utilizando o scanf
+		scanf("%[^\n]s",linhaComando[iterador]);
+	}
 	
-	//for (iterador = 0 ; iterador < 10*qntdComandos; iterador++){
-	//	scanf("%c",comandos[iterador]);
-	//}
-	
-	printf("--MyDebugger--\nMontagem: tipo %d\nComandos: %d\nComando: %s",tipoMontagem,qntdComandos,comandos);
-	
-	
+	printf("--MyDebugger--\nMontagem: tipo %d\nComandos: %d\nComandos:\n",tipoMontagem,qntdComandos);
+	for (iterador = 0; iterador < qntdComandos; iterador++){
+		printf("%s\n",linhaComando[iterador]);
+	}
 	
 	
 	return 0;
