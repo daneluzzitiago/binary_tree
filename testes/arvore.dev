@@ -1,6 +1,6 @@
 [Project]
-FileName=Arvore Binaria Logica.dev
-Name=Arvore Binaria Logica
+FileName=arvore.dev
+Name=arvore
 Type=1
 Ver=2
 ObjFiles=
@@ -12,7 +12,7 @@ MakeIncludes=
 Compiler=
 CppCompiler=
 Linker=
-IsCpp=0
+IsCpp=1
 Icon=
 ExeOutput=
 ObjectOutput=
@@ -50,9 +50,19 @@ ProductVersion=
 AutoIncBuildNr=0
 SyncProduct=1
 
+[Unit1]
+FileName=arvore.c
+CompileCpp=1
+Folder=
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
 [Unit2]
-FileName=ArvoreBinaria.h
-CompileCpp=0
+FileName=arvore.h
+CompileCpp=1
 Folder=
 Compile=1
 Link=1
@@ -61,28 +71,8 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit3]
-FileName=teste_arvore.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit4]
-FileName=teste_arvore.c
-CompileCpp=0
-Folder=
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit1]
-FileName=ArvoreBinaria.c
-CompileCpp=0
+FileName=main.c
+CompileCpp=1
 Folder=
 Compile=1
 Link=1

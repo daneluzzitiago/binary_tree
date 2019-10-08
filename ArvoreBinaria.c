@@ -3,13 +3,36 @@
 #include <string.h>
 #include "ArvoreBinaria.h" //inclui os Protótipos
 
-struct NO{
+typedef struct NO{
     char portEnt[4];
-    int info;
+    int info;	//bit resultado;
     struct NO *esq;
     struct NO *dir;
-};
+}NO;
 
+struct arvore{
+	struct NO *raiz;
+}arvore; 
+
+void insere_Raiz(ARVORE *arvore, char pE[4]){
+	arvore->raiz = (NO*)malloc(sizeof(NO));
+	strcopy(arvore->raiz->portEnt,pE);
+	arvore->raiz->esq = NULL;
+	arvore->raiz->dir = NULL;
+	return;
+}
+
+void insere_Esquerda(NO *no, char pE[4]){
+	NO *novo;
+	novo = (NO*)malloc(sizeof (NO));
+	strcopy(no->portEnt,pE);
+	novo->esq = NULL;
+	novo->dir = NULL;
+	no->esq = novo;
+}
+
+
+/*
 ArvBin* cria_ArvBin(){
     ArvBin* raiz = (ArvBin*) malloc(sizeof(ArvBin));
     if(raiz != NULL)
@@ -32,50 +55,40 @@ void libera_ArvBin(ArvBin* raiz){
     libera_NO(*raiz);//libera cada nó
     free(raiz);//libera a raiz
 }
+
+void insere_Filhos(ArvBin *raiz, char porta1[4] ,char porta2[4], char porta3[4]){
+	struct NO *aux;
+	aux = (struct NO*)malloc(sizeof (struct NO));
+	aux = consulta_ArvBin(raiz,porta1[4]);
+	if (aux == NULL){
+	
+		insere_ElemenNO(raiz,porta1[4],0);
+	}else{
+		insere_ElemenNO(aux,porta2[4],-1);
+		insere_ElemenNO(aux,porta3[4],1);
+	}
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-int insere_ElemenNO(ArvBin *raiz, char* pE, int bit) //insere porta/Entrada
+void insere_ElemenNO(ArvBin *no, char* pE, int pos) //insere porta/Entrada
 {
-    if(raiz == NULL)
-        return 0;
+	
+    if(pos == 0)
+        strcopy(&(*no)->portEnt,pE);
+        return ;
     struct NO* novo;
     novo = (struct NO*) malloc(sizeof(struct NO));
-    if(novo == NULL)
-        return 0;
+    
 
     strcpy(novo->portEnt, pE);
-    novo->info = bit;
     novo->dir = NULL;
     novo->esq = NULL;
-    
-    if(*raiz == NULL)
-        *raiz = novo;
-    else
-    {
-        struct NO* atual = *raiz;
-        struct NO* ant = NULL;
-        ///NESTA IMPLEMENTACAO O CODIGO SEMPRE TENTA PREENCHER O LADO ESQUERDO DA ARVORE ATE QUE PREENCHA COM UM VALOR DE BIT
-        while(atual != NULL)
-        {
-            ant = atual;
-            if(atual == NULL)
-            {
-                atual = atual->esq;
-            }
-            else
-            {
-                atual = atual->dir;
-            }
-        }
-        if(ant == NULL)
-        {
-            ant->esq = novo;
-        }
-        else
-        {
-            ant->dir = novo;
-        }
-    }
-    return 1;
+    if (pos == -1){ //insere na esquerda
+    	no->esq = novo;
+	}else if(pos == 1){ //insere na direita
+		no->dir = novo;
+	}
+	return ;
 
 }
 void emOrdem_String(ArvBin *raiz)
@@ -104,7 +117,7 @@ void operacaoLogica(ArvBin *raiz)
             printf("depois dessa\n");
             /*
             if(operacaoLogica(&((*raiz)->esq)) == 1 )
-                printf("finalmenteee\n");*/
+                printf("finalmenteee\n");
         }   
         if(strchr((*raiz)->portEnt, 'E'))
         {
@@ -239,20 +252,32 @@ int altura_ArvBin(ArvBin *raiz){
         return(alt_dir + 1);
 }
 
-int consulta_ArvBin(ArvBin *raiz, int valor){
-    if(raiz == NULL)
-        return 0;
-    struct NO* atual = *raiz;
-    while(atual != NULL){
-        if(valor == atual->info){
-            return 1;
-        }
-        if(valor > atual->info)
-            atual = atual->dir;
-        else
-            atual = atual->esq;
-    }
-    return 0;
+ArvBin* consulta_ArvBin(ArvBin *raiz, char porta[4]){
+    if(raiz == NULL){
+        return NULL;
+	}
+	if (strcmp(&(*raiz)->portEnt,porta[4]) == 0 ){
+		return raiz;
+	}
+	
+    ArvBin* direita;
+    direita = (struct NO*)malloc(sizeof(struct NO));
+    
+    ArvBin* esquerda;
+    esquerda = (struct NO*)malloc(sizeof(struct NO));
+	
+	esquerda = consulta_ArvBin(esquerda,porta[4]);
+	direita = consulta_ArvBin(direita,porta[4]);
+	
+	if (esquerda == NULL){
+		if (direita == NULL){
+			return NULL;
+		}
+		return direita;
+	}
+	return esquerda;
+	
+
 }
 
 void preOrdem_ArvBin(ArvBin *raiz)
@@ -326,3 +351,5 @@ void Exibe_emOrdem_ArvBin(ArvBin *raiz)
         printf("NULL\n");
 
 }
+
+*/
